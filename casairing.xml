@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/xmlcasa/xml/casa.xsd">
+
+<task type="function" name="casairing" category="analysis">
+
+  <shortdescription>Performs azimuthal average of an image (cube). Saves results in an ascii file and plots them.</shortdescription>
+      
+  <description>Performs azimuthal average of an image (cube). Saves results in an ascii file and plots them.</description>
+
+
+<input>
+
+    <param type="string" name="image" mustexist="false">
+      <description>Input image (or image cube). It can also be a full-polarization image.</description>
+      <value></value>
+    </param>
+
+
+    <param type="int" name="chan0" mustexist="false">
+      <description>First channel to select in image cube.</description>
+      <value>0</value>
+    </param>
+
+
+    <param type="int" name="nchan" mustexist="false">
+      <description>Number of channels to select in image cube. Default -1 => all channels, starting from chan0. If nchan=1, the plot will be a 1D radial profile. If nchan>1, the plot will be a 2D raster of profiles. </description>
+      <value>-1</value>
+    </param>
+
+
+    <param type="any" name="center" mustexist="false">
+      <description>Source center (in pixel units). Default [-1,-1] => image center.</description>
+      <value>[-1,-1]</value>
+    </param>
+
+
+    <param type="double" name="rmax" mustexist="false">
+      <description>Maximum radius of radial profile. Default -1.0 => Maximum possible radius within image.</description>
+      <value>-1.0</value>
+    </param>
+
+    <param type="int" name="nrad" mustexist="false">
+      <description>Number of radial bins in profile. Default 100.</description>
+      <value>100</value>
+    </param>
+
+
+    <param type="int" name="polchan" mustexist="false">
+      <description>Polarization channel in image. Default 0 => usually, Stokes I.</description>
+      <value>0</value>
+    </param>
+
+    <param type="string" name="resultfile" mustexist="false">
+      <description>Name of file where to store profile (in ascii format). Default => do not save.</description>
+      <value></value>
+    </param>
+
+    <param type="int" name="ncontour" mustexist="false">
+      <description> Number of contours in 2D raster plot. Only used if nchan > 1. Default 10</description>
+      <value>10</value>
+    </param>
+
+    <param type="double" name="errorbar" mustexist="false">
+      <description>Scaling factor of error bars. Default 1.0. If negative, or null => Do not plot error bars. Only used if nchan=1.</description>
+      <value>1.0</value>
+    </param>
+
+    <param type="any" name="angle" mustexist="false">
+      <description>Range(s) of angles to use. Several ranges can be given (list of lists). Each range is given by the initial and final angles, moving clockwise and starting from East (left) Default is a full azimuthal average.</description>
+      <value>[[0,360]]</value>
+    </param>
+
+
+
+</input>
+
+  <returns type="bool"/>
+
+  <example>
+
+  EXAMPLES OF THE USE OF CASAIRING:
+
+1.- Continuum image. Make a plot of the radial profile, centered on 
+pixel [20,25], with 15 radial bins:
+
+casairing(image='myimage', center = [20,25], nrad = 15)
+
+
+2.- Image cube. Make a plot of the radial profile for channel 25 only.
+We use the same image center and bins as before:
+
+casairing(image='myimage', center = [20,25], nrad = 15, 
+          chan0 = 25, nchan = 1)
+
+
+3.- Image cube. Make a 2D raster (profile vs. distance and frequency)
+    from channel 10 to the end of the cube:
+
+casairing(image='myimage', center = [20,25], nrad = 15, 
+          chan0 = 10, nchan = -1)
+
+
+4.- Image cube. Same as above, but for a full stokes cube and 
+    for Stokes V (i.e., pol. channel 3, for [I,Q,U,V]):
+
+casairing(image='myimage', center = [20,25], nrad = 15, 
+          chan0 = 10, nchan = -1, polchan = 3)
+
+
+5.- Average of the northern hemisphere of a source:
+
+casairing(image='myimage', angle=[[0,180]])
+
+       or:
+
+casairing(image='myimage', angle=[[0,90],[90,180]])
+
+
+6.- Average of the western side (i.e., right-hand side):
+
+casairing(image='myimage', angle=[[90,-90]])
+
+6.- Average of the eastern side (i.e., left-hand side):
+
+casairing(image='myimage', angle=[[-90,90]])
+
+
+
+
+</example>
+</task>
+
+</casaxml>
+
+
