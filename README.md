@@ -1,4 +1,6 @@
-# Installation
+# CASAIRING
+
+## Installation
 
 Steps to install the `casairing` task into `casa`
 
