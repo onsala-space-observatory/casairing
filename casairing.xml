@@ -8,10 +8,9 @@ file:///opt/casa/code/xmlcasa/xml/casa.xsd">
 
 <task type="function" name="casairing" category="analysis">
 
-  <shortdescription>Performs azimuthal average of an image (cube). Saves results in an ascii file and plots them.</shortdescription>
+  <shortdescription>Performs azimuthal average of an image (cube). Saves results in an ASCII file and plots them.</shortdescription>
 
-  <description>Performs azimuthal average of an image (cube). Saves results in an ascii file and plots them.</description>
-
+  <description>Performs azimuthal average of an image (cube). Saves results in an ASCII file and plots them.</description>
 
   <input>
     <param type="string" name="image" mustexist="false">
@@ -25,7 +24,7 @@ file:///opt/casa/code/xmlcasa/xml/casa.xsd">
     </param>
 
     <param type="int" name="nchan" mustexist="false">
-      <description>Number of channels to select in image cube. Default -1 => all channels, starting from chan0. If nchan=1, the plot will be a 1D radial profile. If nchan>1, the plot will be a 2D raster of profiles. </description>
+      <description>Number of channels to select in image cube. Default -1 => all channels, starting from chan0. If nchan=1, the plot will be a 1D radial profile. If nchan>1, the plot will be a 2D raster of profiles.</description>
       <value>-1</value>
     </param>
 
@@ -55,7 +54,7 @@ file:///opt/casa/code/xmlcasa/xml/casa.xsd">
     </param>
 
     <param type="int" name="ncontour" mustexist="false">
-      <description> Number of contours in 2D raster plot. Only used if nchan > 1. Default 10</description>
+      <description> Number of contours in 2D raster plot. Only used if nchan > 1. Default 10.</description>
       <value>10</value>
     </param>
 
@@ -65,7 +64,7 @@ file:///opt/casa/code/xmlcasa/xml/casa.xsd">
     </param>
 
     <param type="any" name="angle" mustexist="false">
-      <description>Range(s) of angles to use. Several ranges can be given (list of lists). Each range is given by the initial and final angles, moving clockwise and starting from East (left) Default is a full azimuthal average.</description>
+      <description>Range(s) of angles to use. Several ranges can be given (list of lists). Each range is given by the initial and final angles, moving clockwise and starting from east (left). Default is a full azimuthal average.</description>
       <value>[[0,360]]</value>
     </param>
   </input>
@@ -83,22 +82,19 @@ casairing(image='myimage', center = [20,25], nrad = 15)
 2.- Image cube. Make a plot of the radial profile for channel 25 only.
 We use the same image center and bins as before:
 
-casairing(image='myimage', center = [20,25], nrad = 15,
-          chan0 = 25, nchan = 1)
+casairing(image='myimage', center = [20,25], nrad = 15, chan0 = 25, nchan = 1)
 
 
 3.- Image cube. Make a 2D raster (profile vs. distance and frequency)
     from channel 10 to the end of the cube:
 
-casairing(image='myimage', center = [20,25], nrad = 15,
-          chan0 = 10, nchan = -1)
+casairing(image='myimage', center = [20,25], nrad = 15, chan0 = 10, nchan = -1)
 
 
 4.- Image cube. Same as above, but for a full stokes cube and
     for Stokes V (i.e., pol. channel 3, for [I,Q,U,V]):
 
-casairing(image='myimage', center = [20,25], nrad = 15,
-          chan0 = 10, nchan = -1, polchan = 3)
+casairing(image='myimage', center = [20,25], nrad = 15, chan0 = 10, nchan = -1, polchan = 3)
 
 
 5.- Average of the northern hemisphere of a source:
