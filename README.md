@@ -9,7 +9,7 @@ Steps to install the `casairing` task into `casa`
 
 ``` shell
 git clone <repository url>
-buildmytasks
+buildmytasks     # this command is part of your casa installation
 ```
 
  2. Edit the file `$HOME/.casa/init.py`. Add the line:
