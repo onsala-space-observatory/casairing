@@ -8,13 +8,15 @@ Steps to install the `casairing` task into `casa`
  (e.g. `$HOME/.casa/NordicTools`):
 
 ``` shell
+cd $HOME/.casa/NordicTools
 git clone <repository url>
+cd casairing
 buildmytasks     # this command is part of your casa installation
 ```
  2. Edit the file `$HOME/.casa/init.py`. Add the line:
 
 ``` shell
-execfile('$HOME/.casa/NordicTools/mytasks.py')
+execfile('$HOME/.casa/NordicTools/casairing/mytasks.py')
 ```
 That's it! You should now be able to run the new task in CASA! Just doing:
 
