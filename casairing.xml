@@ -1,69 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" ?>
+<casaxml xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd file:///opt/casa/code/xmlcasa/xml/casa.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://casa.nrao.edu/schema/psetTypes.html">
 
-<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
-file:///opt/casa/code/xmlcasa/xml/casa.xsd">
-
-<task type="function" name="casairing" category="analysis">
+<task category="analysis" name="casairing" type="function">
 
   <shortdescription>Performs azimuthal average of an image (cube). Saves results in an ASCII file and plots them.</shortdescription>
 
   <description>Performs azimuthal average of an image (cube). Saves results in an ASCII file and plots them.</description>
 
   <input>
-    <param type="string" name="image" mustexist="false">
+    <param mustexist="false" name="image" type="path">
       <description>Input image (or image cube). It can also be a full-polarization image.</description>
-      <value></value>
+      <value/>
     </param>
 
-    <param type="int" name="chan0" mustexist="false">
+    <param mustexist="false" name="chan0" type="int">
       <description>First channel to select in image cube.</description>
       <value>0</value>
     </param>
 
-    <param type="int" name="nchan" mustexist="false">
-      <description>Number of channels to select in image cube. Default -1 => all channels, starting from chan0. If nchan=1, the plot will be a 1D radial profile. If nchan>1, the plot will be a 2D raster of profiles.</description>
+    <param mustexist="false" name="nchan" type="int">
+      <description>Number of channels to select in image cube. Default -1 =&gt; all channels, starting from chan0. If nchan=1, the plot will be a 1D radial profile. If nchan&gt;1, the plot will be a 2D raster of profiles.</description>
       <value>-1</value>
     </param>
 
-    <param type="any" name="center" mustexist="false">
-      <description>Source center (in pixel units). Default [-1,-1] => image center.</description>
+    <param mustexist="false" name="center" type="any">
+      <description>Source center (in pixel units). Default [-1,-1] =&gt; image center.</description>
       <value>[-1,-1]</value>
     </param>
 
-    <param type="double" name="rmax" mustexist="false">
-      <description>Maximum radius of radial profile. Default -1.0 => Maximum possible radius within image.</description>
+    <param mustexist="false" name="rmax" type="double">
+      <description>Maximum radius of radial profile. Default -1.0 =&gt; Maximum possible radius within image.</description>
       <value>-1.0</value>
     </param>
 
-    <param type="int" name="nrad" mustexist="false">
+    <param mustexist="false" name="nrad" type="int">
       <description>Number of radial bins in profile. Default 100.</description>
       <value>100</value>
     </param>
 
-    <param type="int" name="polchan" mustexist="false">
-      <description>Polarization channel in image. Default 0 => usually, Stokes I.</description>
+    <param mustexist="false" name="polchan" type="int">
+      <description>Polarization channel in image. Default 0 =&gt; usually, Stokes I.</description>
       <value>0</value>
     </param>
 
-    <param type="string" name="resultfile" mustexist="false">
-      <description>Name of file where to store profile (in ascii format). Default => do not save.</description>
-      <value></value>
+    <param mustexist="false" name="resultfile" type="path">
+      <description>Name of file where to store profile (in ascii format). Default =&gt; do not save.</description>
+      <value/>
     </param>
 
-    <param type="int" name="ncontour" mustexist="false">
-      <description> Number of contours in 2D raster plot. Only used if nchan > 1. Default 10.</description>
+    <param mustexist="false" name="ncontour" type="int">
+      <description> Number of contours in 2D raster plot. Only used if nchan &gt; 1. Default 10.</description>
       <value>10</value>
     </param>
 
-    <param type="double" name="errorbar" mustexist="false">
-      <description>Scaling factor of error bars. Default 1.0. If negative, or null => Do not plot error bars. Only used if nchan=1.</description>
+    <param mustexist="false" name="errorbar" type="double">
+      <description>Scaling factor of error bars. Default 1.0. If negative, or null =&gt; Do not plot error bars. Only used if nchan=1.</description>
       <value>1.0</value>
     </param>
 
-    <param type="any" name="angle" mustexist="false">
+    <param mustexist="false" name="angle" type="any">
       <description>Range(s) of angles to use. Several ranges can be given (list of lists). Each range is given by the initial and final angles, moving clockwise and starting from east (left). Default is a full azimuthal average.</description>
       <value>[[0,360]]</value>
     </param>
