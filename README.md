@@ -11,17 +11,15 @@ Steps to install the `casairing` task into `casa`
 cd $HOME/.casa/NordicTools
 git clone <repository url>
 cd casairing
-buildmytasks     # this command is part of your casa installation
+buildmytasks --module casairing casairing.xml
 ```
- 2. Edit the file `$HOME/.casa/init.py`. Add the line:
+ 2. Inside `casa` add the folder to your `PYTHONPATH`:
 
-``` shell
-execfile('$HOME/.casa/NordicTools/casairing/mytasks.py')
-```
-That's it! You should now be able to run the new task in CASA! Just doing:
+``` python
+CASA <1>: sys.path.insert(0, <path to casairing folder>)
+CASA <2>: from casairing.gotasks.casairing import casairing
+CASA <3>: inp(casairing)
 
-``` shell
-tget casairing
 ```
 
-inside `casa` should load the task. To get help, just type `help casairing`
+That's it! Enjoy!
