@@ -16,7 +16,7 @@ buildmytasks --module casairing casairing.xml
  2. Inside `casa` add the folder to your `PYTHONPATH`:
 
 ``` python
-CASA <1>: sys.path.insert(0, <path to casairing folder>)
+CASA <1>: sys.path.insert(0, os.getenv("HOME") + "/.casa/NordicTools")
 CASA <2>: from casairing.gotasks.casairing import casairing
 CASA <3>: inp(casairing)
 
