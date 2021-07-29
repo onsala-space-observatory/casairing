@@ -125,8 +125,8 @@ def casairing(image='', chan0=0, nchan=-1, center=[-1, -1], rmax=-1.0, nrad=100,
         center[0] = npix[0]/2
         center[1] = npix[1]/2
 
-    Rstop = np.min(map(abs, [npix[0] - center[0], center[0],
-                             npix[1] - center[1], center[1]]))*np.abs(deltaRADec[0])*rad2as
+    Rstop = np.min(list(map(abs, [npix[0] - center[0], center[0],
+                             npix[1] - center[1], center[1]])))*np.abs(deltaRADec[0])*rad2as
     if rmax < 0:
         print('Setting rmax to %.2e arcsec' % Rstop)
         rmax = Rstop
