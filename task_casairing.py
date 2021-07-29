@@ -60,17 +60,17 @@ def casairing(image='', chan0=0, nchan=-1, center=[-1, -1], rmax=-1.0, nrad=100,
 
     image = str(image)
 
-    print '\n\n   IRING FOR CASA - VERSION 1.1\n\n'
-    print 'Will use image %s\n' % image
+    print('\n\n   IRING FOR CASA - VERSION 1.1\n\n')
+    print('Will use image %s\n' % image)
 
     try:
         success = ia.open(image)
         if not success:
             raise Exception('%s is not a valid image')
-    except:
+    except Exception:
         raise Exception('ERROR in ia tool!')
 
-    print 'Reading image data'
+    print('Reading image data')
     cube = ia.getchunk()
     imcoords = ia.coordsys().torecord()
     RADec0 = imcoords['direction0']['crval']
@@ -83,7 +83,7 @@ def casairing(image='', chan0=0, nchan=-1, center=[-1, -1], rmax=-1.0, nrad=100,
         pix0 = imcoords['spectral2']['wcs']['crpix']
         deltanu = imcoords['spectral2']['wcs']['cdelt']
     else:
-        print 'No frequency info in image coordinates.'
+        print('No frequency info in image coordinates.')
         freq0 = ia.summary()['refval'][-1]
         pix0 = ia.summary()['refpix'][-1]
         deltanu = 0.0
@@ -100,7 +100,7 @@ def casairing(image='', chan0=0, nchan=-1, center=[-1, -1], rmax=-1.0, nrad=100,
         imchan = imshape[3]
     else:
         imchan = 1
-        print 'This seems to be a continuum image'
+        print('This seems to be a continuum image')
 
     if len(imshape) == 2:
         cube = cube[:, :, np.newaxis, np.newaxis]
@@ -121,7 +121,7 @@ def casairing(image='', chan0=0, nchan=-1, center=[-1, -1], rmax=-1.0, nrad=100,
     if nchan <= 0:
         nchan = imchan - chan0 + 1
 
-    print 'Selecting frequency channels from %i to %i' % (chan0, chan0+nchan-1)
+    print('Selecting frequency channels from %i to %i' % (chan0, chan0+nchan-1))
     if center[0] < 0 or center[1] < 0:
         center[0] = npix[0]/2
         center[1] = npix[1]/2
@@ -129,7 +129,7 @@ def casairing(image='', chan0=0, nchan=-1, center=[-1, -1], rmax=-1.0, nrad=100,
     Rstop = np.min(map(abs, [npix[0] - center[0], center[0],
                              npix[1] - center[1], center[1]]))*np.abs(deltaRADec[0])*rad2as
     if rmax < 0:
-        print 'Setting rmax to %.2e arcsec' % Rstop
+        print('Setting rmax to %.2e arcsec' % Rstop)
         rmax = Rstop
 
     if rmax > Rstop:
@@ -138,28 +138,26 @@ def casairing(image='', chan0=0, nchan=-1, center=[-1, -1], rmax=-1.0, nrad=100,
 
     rmaxpix = int(rmax/deltaRADec[0])
     freqs = np.array([freq0 + deltanu*(p-pix0) for p in range(imchan)])
-    RAs = np.array([RADec0[0] + deltaRADec[0]*(p-pix0RADec[0])
-                    for p in range(npix[0])])
-    Decs = np.array([RADec0[1] + deltaRADec[1]*(p-pix0RADec[1])
-                     for p in range(npix[1])])
+    RAs = np.array([RADec0[0] + deltaRADec[0]*(p-pix0RADec[0]) for p in range(npix[0])])
+    Decs = np.array([RADec0[1] + deltaRADec[1]*(p-pix0RADec[1]) for p in range(npix[1])])
     RelRA = np.array([deltaRADec[0]*(p-pix0RADec[0]) for p in range(npix[0])])
     RelDec = np.array([deltaRADec[1]*(p-pix0RADec[1]) for p in range(npix[1])])
 
     ri = np.linspace(0., rmax, nrad)
     rays = [[] for r in ri]
-    print 'Computing matrix of distances'
+    print('Computing matrix of distances')
     distx = np.linspace(-center[0], npix[0]-center[0],
                         npix[0])*deltaRADec[0]*rad2as
     disty = np.linspace(-center[1], npix[1]-center[1],
                         npix[1])*deltaRADec[1]*rad2as
     dx2 = distx*distx
     dy2 = disty*disty
-    distmatr = np.sqrt(np.outer(np.ones(len(distx)), dy2) +
-                       np.outer(dx2, np.ones(len(disty))))
+    distmatr = np.sqrt(np.outer(np.ones(len(distx)), dy2)
+                       + np.outer(dx2, np.ones(len(disty))))
     angmatr = np.arctan2(np.outer(np.ones(len(distx)), disty),
                          np.outer(distx, np.ones(len(disty))))
 
-    print 'Computing azimuthal average\n'
+    print('Computing azimuthal average\n')
     allangs = []
     for angs in angle:
         if angs[0] > 180.:
@@ -194,29 +192,28 @@ def casairing(image='', chan0=0, nchan=-1, center=[-1, -1], rmax=-1.0, nrad=100,
         sys.stdout.flush()
         if len(ray) > 0:
             if len(ray[0]) == 1:
-                print '\n\n Only one pixel for radial bin # %i' % r
+                print('\n\n Only one pixel for radial bin # %i' % r)
             for nu in range(nchan):
                 AverData[r, nu] = np.average(cube[ray[0], ray[1], polchan, nu+chan0])
                 if len(ray[0]) > 1:
                     StdData[r, nu] = np.std(
                         cube[ray[0], ray[1], polchan, nu+chan0])/np.sqrt(float(len(ray[0])))
         else:
-            print '\n Radial bin #%i does not have any pixel. Try to increase the angle range(s)' % r
+            print('\n Radial bin #%i does not have any pixel. Try to increase the angle range(s)' % r)
 
     StdData[np.isnan(AverData)] = 0.0
     AverData[np.isnan(AverData)] = 0.0
     if len(resultfile) > 0:
-        print '\nWriting results to file %s' % resultfile
-        ff = open(resultfile, 'w')
-        print >> ff, "#    Distance (as),  Frequency (GHz),  Average (%s),  Avg. Error (%s)" % (
-            unit, unit)
-        for r in range(nrad):
-            for n in range(nchan):
-                print >> ff, '%.8e  %.8e  %.8e  %.8e  ' % (
-                    ri[r], freqs[n+chan0]/1.e9, AverData[r, n], StdData[r, n])
-        ff.close()
+        print('\nWriting results to file %s' % resultfile)
+        with open(resultfile, 'w') as ff:
+            print("#    Distance (as),  Frequency (GHz),  Average (%s),  Avg. Error (%s)" % (
+                unit, unit), fil=ff)
+            for r in range(nrad):
+                for n in range(nchan):
+                    print('%.8e  %.8e  %.8e  %.8e  ' % (
+                        ri[r], freqs[n+chan0]/1.e9, AverData[r, n], StdData[r, n]), file=ff)
 
-    print '\nPlotting'
+    print('\nPlotting')
     xaxis = freqs[chan0:chan0+nchan]/(1.e+9)
     yaxis = ri
     if nchan > 1:
