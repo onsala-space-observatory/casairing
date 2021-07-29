@@ -48,8 +48,8 @@
 import numpy as np
 import pylab as pl
 import sys
-from taskinit import gentools
-ia = gentools(['ia'])[0]
+import casatools
+ia = casatools.image()
 
 def casairing(image='', chan0=0, nchan=-1, center=[-1, -1], rmax=-1.0, nrad=100, polchan=0,
               resultfile='', ncontour=10, errorbar=1.0, angle=[[0, 360]]):
@@ -66,7 +66,7 @@ def casairing(image='', chan0=0, nchan=-1, center=[-1, -1], rmax=-1.0, nrad=100,
         success = ia.open(image)
         if not success:
             raise Exception('%s is not a valid image')
-    except:
+    except Exception:
         raise Exception('ERROR in ia tool!')
 
     print('Reading image data')
@@ -137,10 +137,8 @@ def casairing(image='', chan0=0, nchan=-1, center=[-1, -1], rmax=-1.0, nrad=100,
 
     rmaxpix = int(rmax/deltaRADec[0])
     freqs = np.array([freq0 + deltanu*(p-pix0) for p in range(imchan)])
-    RAs = np.array([RADec0[0] + deltaRADec[0]*(p-pix0RADec[0])
-                    for p in range(npix[0])])
-    Decs = np.array([RADec0[1] + deltaRADec[1]*(p-pix0RADec[1])
-                     for p in range(npix[1])])
+    RAs = np.array([RADec0[0] + deltaRADec[0]*(p-pix0RADec[0]) for p in range(npix[0])])
+    Decs = np.array([RADec0[1] + deltaRADec[1]*(p-pix0RADec[1]) for p in range(npix[1])])
     RelRA = np.array([deltaRADec[0]*(p-pix0RADec[0]) for p in range(npix[0])])
     RelDec = np.array([deltaRADec[1]*(p-pix0RADec[1]) for p in range(npix[1])])
 
@@ -153,8 +151,8 @@ def casairing(image='', chan0=0, nchan=-1, center=[-1, -1], rmax=-1.0, nrad=100,
                         npix[1])*deltaRADec[1]*rad2as
     dx2 = distx*distx
     dy2 = disty*disty
-    distmatr = np.sqrt(np.outer(np.ones(len(distx)), dy2) +
-                       np.outer(dx2, np.ones(len(disty))))
+    distmatr = np.sqrt(np.outer(np.ones(len(distx)), dy2)
+                       + np.outer(dx2, np.ones(len(disty))))
     angmatr = np.arctan2(np.outer(np.ones(len(distx)), disty),
                          np.outer(distx, np.ones(len(disty))))
 
