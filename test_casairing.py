@@ -3,9 +3,19 @@
 # cl = gentools(['cl'])[0]
 # qa = gentools(['qa'])[0]
 
-image =
+image='TEST1.CLEAN.image'
+chan0=0
+nchan=-1
+center=[-1,-1]
+rmax=-1.0
+nrad=100
+polchan=0
+resultfile=''
+ncontour=10
+errorbar=1.0
+angle=[[0,360]]
 
-if not os.path.isdir(residual):
+if not os.path.isdir(image):
     # start by simulating an image of a disc
     # Array to use:
     arrayconfig = 'alma.out10.cfg'
@@ -56,6 +66,15 @@ if not os.path.isdir(residual):
            imsize=2*Npix, niter=0)
 
 # now load and run casairing with all default parameters, except image name
-tget(casairing)
-image = "TEST1.CLEAN.image"
+print(image)
+print(chan0)
+print(nchan)
+print(center)
+print(rmax)
+print(nrad)
+print(polchan)
+print(resultfile)
+print(ncontour)
+print(errorbar)
+print(angle)
 casairing()
