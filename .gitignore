@@ -1,3 +1,6 @@
+*.pyc
 mytasks.py
 casairing.py
 casairing_cli.py
+*~
+.vscode/

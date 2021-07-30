@@ -1,7 +1,5 @@
-# from taskinit import gentools
-# ia = gentools(['ia'])[0]
-# cl = gentools(['cl'])[0]
-# qa = gentools(['qa'])[0]
+import sys
+import os
 
 image='TEST1.CLEAN.image'
 chan0=0
@@ -32,7 +30,8 @@ if not os.path.isdir(image):
     ChW = '0.01GHz'
     imname = 'Disc'
     # type   flux    major       minor       PA  freq   spec.ind.    Direction
-    si = ['disk', 1.0, '0.2arcsec', '0.1arcsec', '60.0deg', Nu, 1.0, "J2000 10h00m00.0s -30d00m00.0s"]
+    si = ['disk', 1.0, '0.2arcsec', '0.1arcsec', '60.0deg', Nu, 1.0,
+          "J2000 10h00m00.0s -30d00m00.0s"]
 
     config = '.'.join(arrayconfig.split('.')[:-1])
     print('Generating %s' % imname)

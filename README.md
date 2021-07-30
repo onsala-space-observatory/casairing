@@ -18,6 +18,7 @@ buildmytasks     # this command is part of your casa installation
 ``` shell
 execfile('$HOME/.casa/NordicTools/casairing/mytasks.py')
 ```
+
 That's it! You should now be able to run the new task in CASA! Just doing:
 
 ``` shell
