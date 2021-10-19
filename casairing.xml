@@ -4,7 +4,8 @@
 
   <shortdescription>Performs azimuthal average of an image (cube). Saves results in an ASCII file and plots them.</shortdescription>
 
-  <description>Performs azimuthal average of an image (cube). Saves results in an ASCII file and plots them.</description>
+  <description>Performs azimuthal average of an image (cube). Saves results in an ASCII
+  file and plots them.</description>
 
   <input>
     <param mustexist="false" name="image" type="path">
@@ -18,7 +19,9 @@
     </param>
 
     <param mustexist="false" name="nchan" type="int">
-      <description>Number of channels to select in image cube. Default -1 =&gt; all channels, starting from chan0. If nchan=1, the plot will be a 1D radial profile. If nchan&gt;1, the plot will be a 2D raster of profiles.</description>
+      <description>Number of channels to select in image cube. Default -1 =&gt; all
+      channels, starting from chan0. If nchan=1, the plot will be a 1D radial profile. If
+      nchan&gt;1, the plot will be a 2D raster of profiles.</description>
       <value>-1</value>
     </param>
 
@@ -28,7 +31,8 @@
     </param>
 
     <param mustexist="false" name="rmax" type="double">
-      <description>Maximum radius of radial profile. Default -1.0 =&gt; Maximum possible radius within image.</description>
+      <description>Maximum radius of radial profile. Default -1.0 =&gt; Maximum possible
+      radius within image.</description>
       <value>-1.0</value>
     </param>
 
@@ -53,12 +57,15 @@
     </param>
 
     <param mustexist="false" name="errorbar" type="double">
-      <description>Scaling factor of error bars. Default 1.0. If negative, or null =&gt; Do not plot error bars. Only used if nchan=1.</description>
+      <description>Scaling factor of error bars. Default 1.0. If negative, or null =&gt;
+      Do not plot error bars. Only used if nchan=1.</description>
       <value>1.0</value>
     </param>
 
     <param mustexist="false" name="angle" type="any">
-      <description>Range(s) of angles to use. Several ranges can be given (list of lists). Each range is given by the initial and final angles, moving clockwise and starting from east (left). Default is a full azimuthal average.</description>
+      <description>Range(s) of angles to use. Several ranges can be given (list of
+      lists). Each range is given by the initial and final angles, moving clockwise and
+      starting from east (left). Default is a full azimuthal average.</description>
       <value>[[0,360]]</value>
     </param>
   </input>
